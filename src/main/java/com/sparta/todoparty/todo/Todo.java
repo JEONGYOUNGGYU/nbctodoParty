@@ -1,11 +1,13 @@
 package com.sparta.todoparty.todo;
 
+import com.sparta.todoparty.comment.Comment;
 import com.sparta.todoparty.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -30,6 +32,10 @@ public class Todo {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(mappedBy = "todo")
+    private List<Comment> comments;
+
 
     public Todo(TodoRequestDto todoRequestDto) {
         this.title = todoRequestDto.getTitle();

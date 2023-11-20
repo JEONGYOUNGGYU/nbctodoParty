@@ -8,10 +8,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.RejectedExecutionException;
@@ -24,7 +24,7 @@ public class TodoController {
     private final TodoService todoService;
 
     @PostMapping
-    public ResponseEntity<TodoResponseDto> postTodo(@RequestBody TodoRequestDto todoRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
+    public ResponseEntity<TodoResponseDto> createTodo(@RequestBody TodoRequestDto todoRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
         TodoResponseDto responseDto = todoService.createTodo(todoRequestDto, userDetails.getUser());
 
         return ResponseEntity.status(201).body(responseDto);
@@ -33,7 +33,7 @@ public class TodoController {
     @GetMapping("/{todoId}")
     public ResponseEntity<CommonResponseDto> getTodo(@PathVariable Long todoId){
     try {
-        TodoResponseDto responseDto = todoService.getTodo(todoId);
+        TodoResponseDto responseDto = todoService.getTodoDto(todoId);
         return ResponseEntity.ok().body(responseDto);
 
     } catch (IllegalArgumentException e){
@@ -50,6 +50,7 @@ public class TodoController {
 
         return ResponseEntity.ok().body(response);
     }
+    @Transactional
     @PutMapping("/{todoId}")
     public ResponseEntity<CommonResponseDto> putTodo(@PathVariable Long todoId, @RequestBody TodoRequestDto todoRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
         try {
