@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.RejectedExecutionException;
 
 @RestController
 @RequestMapping("/api/todos")
@@ -24,7 +25,7 @@ public class TodoController {
 
     @PostMapping
     public ResponseEntity<TodoResponseDto> postTodo(@RequestBody TodoRequestDto todoRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
-        TodoResponseDto responseDto = todoService.createPost(todoRequestDto, userDetails.getUser());
+        TodoResponseDto responseDto = todoService.createTodo(todoRequestDto, userDetails.getUser());
 
         return ResponseEntity.status(201).body(responseDto);
     }
@@ -49,4 +50,16 @@ public class TodoController {
 
         return ResponseEntity.ok().body(response);
     }
+    @PutMapping("/{todoId}")
+    public ResponseEntity<CommonResponseDto> putTodo(@PathVariable Long todoId, @RequestBody TodoRequestDto todoRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
+        try {
+            TodoResponseDto responseDto = todoService.updateTodo(todoId, todoRequestDto, userDetails.getUser());
+            return ResponseEntity.ok().body(responseDto);
+
+        }catch (RejectedExecutionException | IllegalArgumentException ex) {
+            return ResponseEntity.badRequest().body(new CommonResponseDto(ex.getMessage(), HttpStatus.BAD_REQUEST.value()));
+        }
+
+    }
+
 }
