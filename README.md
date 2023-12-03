@@ -1,5 +1,5 @@
 # nbctodoParty
-내배캠 심화과제 개인과제
+## 내배캠 심화과제 개인과제
 
 - [ ]  **🆕 DTO, Entity Test 추가하기**
     - `@Test` 를 사용해서 DTO 와 Entity Test 를 추가합니다.
