@@ -1,7 +1,18 @@
 # nbctodoParty
 내배캠 심화과제 개인과제
 
--check
+- [ ]  **🆕 DTO, Entity Test 추가하기**
+    - `@Test` 를 사용해서 DTO 와 Entity Test 를 추가합니다.
+    - User, Todo, Comment, DTO 에 존재하는 메서드들에 대해서 테스트를 추가합니다.
+- [ ]  **🆕 Controller Test 추가하기**
+    - `@WebMvcTest` 를 사용하여 Controller Test 를 추가합니다.
+    - Todo, Comment Controller 에 대해서 테스트를 추가합니다.
+- [ ]  **🆕 Service Test 추가하기**
+    - `@ExtendWith` 를 사용하여 Service Test 를 추가합니다.
+    - User, UserDetails, Todo, Comment Service 에 대해서 테스트를 추가합니다.
+- [ ]  **🆕 Repository Test 추가하기**
+    - `@DataJpaTest` 를 사용하여 Repository Test 를 추가합니다.
+    - User, Todo, Comment Repository 에 대해서 테스트를 추가합니다.
 
 ## 1. 통합 테스트와 단위 테스트의 차이점에 대해서 설명해주세요.
 - 
